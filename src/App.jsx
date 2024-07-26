@@ -12,7 +12,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="att" element={<Dashboard />} />
 
           {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
@@ -38,7 +38,7 @@ function Layout() {
             <Link to="/about">About</Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboardnnnnn</Link>
+            <Link to="/att">Att</Link>
           </li>
           <li>
             <Link to="/nothing-here">Nothing Here</Link>

@@ -1,5 +1,6 @@
 import './App.css'
 import Button from 'remoteApp/Button';
+import Att from 'remoteApp/Att';
 
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 
@@ -79,6 +80,7 @@ function Dashboard() {
   return (
     <div>
       <h2>Dashboard</h2>
+      <Att/>
     </div>
   );
 }

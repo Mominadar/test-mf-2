@@ -10,7 +10,7 @@ export default defineConfig({
       name: 'app',
       remotes: {
         remoteApp: 'https://remote-test-mf.vercel.app/assets/remoteEntry.js',
-      },
+            },
       shared: ['react','react-dom']
     })
   ],
@@ -19,5 +19,8 @@ export default defineConfig({
     target: 'esnext',
     minify: false,
     cssCodeSplit: false
-  }
+  },
+  output: {
+    libraryTarget: 'system',
+  },
 })

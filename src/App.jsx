@@ -1,4 +1,4 @@
-import Att from "remoteApp/Att";
+import Att from "accessibleTextBooks/Att";
 import Header from "common/Header";
 import Footer from "common/Footer";
 import LoginCard from "common/LoginCard";

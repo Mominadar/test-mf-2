@@ -1,9 +1,11 @@
-import './App.css'
-import Button from 'remoteApp/Button';
-import Att from 'remoteApp/Att';
+import Att from "remoteApp/Att";
+import Header from "common/Header";
+import Footer from "common/Footer";
+import LoginCard from "common/LoginCard";
+import { isLoggedIn, logout } from "common/login";
+import Dashboard from "playgroundUi/Dashboard";
 
-import { Routes, Route, Outlet, Link } from "react-router-dom";
-
+import { Routes, Route, Outlet, Link, useNavigate } from "react-router-dom";
 
 export default function App() {
   return (
@@ -12,11 +14,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="att" element={<Dashboard />} />
-
-          {/* Using path="*"" means "match anything", so this route
-                acts like a catch-all for URLs that we don't have explicit
-                routes for. */}
+          <Route path="att" element={<Att />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
@@ -25,62 +23,37 @@ export default function App() {
 }
 
 function Layout() {
+  const navigate = useNavigate();
   return (
-    <div>
-      {/* A "layout route" is a good place to put markup you want to
-          share across all the pages on your site, like navigation. */}
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/att">Att</Link>
-          </li>
-          <li>
-            <Link to="/nothing-here">Nothing Here</Link>
-          </li>
-        </ul>
-      </nav>
-
-      <hr />
-
-      {/* An <Outlet> renders whatever child route is currently active,
-          so you can think about this <Outlet> as a placeholder for
-          the child routes we defined above. */}
-      <Outlet />
-    </div>
+    <>
+      {isLoggedIn() ? (
+        <div>
+          <Header goToHome={()=>navigate("/")} handleLogout={logout} />
+          <Outlet />
+          <Footer />
+        </div>
+      ) : (
+        <LoginCard />
+      )}
+    </>
   );
 }
 
 function Home() {
-  return (
-    <div>
-      <h2>Home</h2>
-    </div>
-  );
+  const navigate = useNavigate();
+  return <Dashboard navigate={navigate} />;
 }
 
 function About() {
   return (
     <div>
-       <Button
-    onClick={() => alert("Now everything's alright! If not, check reality settings.")}
-  >
-    Make everything alright
-  </Button>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-      <Att/>
+      <Button
+        onClick={() =>
+          alert("Now everything's alright! If not, check reality settings.")
+        }
+      >
+        Make everything alright
+      </Button>
     </div>
   );
 }
@@ -91,13 +64,7 @@ function NoMatch() {
       <h2>Nothing to see here!</h2>
       <p>
         <Link to="/">Go to the home page</Link>
-        <Button
-    onClick={() => alert("Now everything's alright! If not, check reality settings.")}
-  >
-    Make everything alright
-  </Button>
       </p>
     </div>
   );
 }
-
